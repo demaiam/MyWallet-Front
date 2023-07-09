@@ -15,13 +15,13 @@ export default function SignUpPage() {
   function signUp(event) {
     event.preventDefault();
 
-    if (password != confirmPassword) return alert("Senhas não coincidem");
-
+    if (password !== confirmPassword) return alert("Senhas não coincidem");
+    
     const data = { name: name, email: email, password: password };
 
-    const req = axios.post("https://localhost:5000/cadastro", data)
-    .then(navigate('/'))
-    .catch(res => alert(`Failed to signup! ${res.response.data.message}`));
+    const req = axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, data);
+    req.then(navigate('/'));
+    req.catch(res => alert(`Failed to signup! ${res.response.data.message}`));
   }
 
   return (
@@ -45,7 +45,6 @@ export default function SignUpPage() {
         <input
           placeholder="Senha"
           type="password"
-          autocomplete="new-password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           data-test="password"
@@ -53,12 +52,11 @@ export default function SignUpPage() {
         <input
           placeholder="Confirme a senha"
           type="password"
-          autocomplete="new-password"
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
           data-test="conf-password"
         />
-        <button type="submit" data-test="sign-up-submit">Cadastrar</button>
+        <button type="submit" data-test="sign-up-submit">Cadastrar  </button>
       </form>
 
       <button onClick={() => navigate('/')}>Já tem uma conta? Entre agora!</button>

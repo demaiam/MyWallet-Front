@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Context from './context/Context'; 
 import styled from "styled-components";
 import HomePage from "./pages/HomePage/HomePage";
 import SignInPage from "./pages/SignInPage/SignInPage";
@@ -7,16 +8,18 @@ import TransactionsPage from "./pages/TransactionPage/TransactionPage";
 
 export default function App() {
   return (
-    <PagesContainer>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SignInPage />} />
-          <Route path="/cadastro" element={<SignUpPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
-        </Routes>
-      </BrowserRouter>
-    </PagesContainer>
+    <Context>
+      <PagesContainer>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SignInPage />} />
+            <Route path="/cadastro" element={<SignUpPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
+          </Routes>
+        </BrowserRouter>
+      </PagesContainer>
+    </Context>
   )
 }
 

@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyWalletLogo from "../../components/MyWalletLogo";
 import axios from 'axios';
 import { SignInContainer } from "./styled";
+import Context from "../../context/Context";
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [info, setInfo] = useContext(Context);
 
   const navigate = useNavigate();
 
   function login(event) {
     event.preventDefault();
     const data = { email: email, password: password };
-    const req = axios.post('http://localhost:5000/', data)
-    .then(navigate('/'))
-    .catch(res => alert(`Failed to login! ${res.response.data.message}`));
+    const req = axios.post(`${import.meta.env.VITE_API_URL}/`, data);
+    req.then(res => {
+      setInfo(res);
+      navigate('/');
+    });
+    req.catch(res => 
+      alert(`Falha ao fazer Login! ${res.response.data.message}`)
+    );
   }
 
   return (
@@ -32,7 +39,6 @@ export default function SignInPage() {
         <input
           placeholder="Senha"
           type="password"
-          autocomplete="new-password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           data-test="password"

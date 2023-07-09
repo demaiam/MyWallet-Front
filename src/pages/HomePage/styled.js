@@ -54,7 +54,7 @@ export const ButtonsContainer = styled.section`
 export const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+  color: ${(props) => (props.color === "entrada" ? "green" : "red")};
 `
 export const ListItemContainer = styled.li`
   display: flex;
