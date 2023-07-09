@@ -8,7 +8,7 @@ import Context from "../../context/Context";
 export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [info, setInfo] = useContext(Context);
+  const { setToken, setName } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -17,7 +17,8 @@ export default function SignInPage() {
     const data = { email: email, password: password };
     const req = axios.post(`${import.meta.env.VITE_API_URL}/`, data);
     req.then(res => {
-      setInfo(res);
+      setToken(res.data.token);
+      setName(res.data.name);
       navigate('/');
     });
     req.catch(res => 

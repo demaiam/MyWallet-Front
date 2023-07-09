@@ -21,7 +21,7 @@ export default function SignUpPage() {
 
     const req = axios.post(`${import.meta.env.VITE_API_URL}/cadastro`, data);
     req.then(navigate('/'));
-    req.catch(res => alert(`Failed to signup! ${res.response.data.message}`));
+    req.catch(res => alert(`Falha ao fazer cadastro! ${res.response.data.message}`));
   }
 
   return (

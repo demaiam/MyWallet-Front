@@ -12,8 +12,7 @@ export default function HomePage() {
 
   const navigate = useNavigate();
 
-  const [info] = useContext(Context);
-  const token = info.data.token;
+  const { name, token } = useContext(Context);
 
   useEffect(() => {
     const authentication = {
@@ -43,7 +42,7 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1 data-test="user-name">Olá, </h1>
+        <h1 data-test="user-name">Olá, {name}</h1>
         <BiExit data-test="logout"/>
       </Header>
 

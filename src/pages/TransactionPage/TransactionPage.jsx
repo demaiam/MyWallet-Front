@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TransactionsContainer } from "./styled";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Context from "../../context/Context";
 
 export default function TransactionsPage() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(0);
   const [description, setDescription] = useState('');
 
   const { type } = useParams();
-  const [info] = useContext(Context);
-  const token = info.data.token;
+  const { token } = useContext(Context);
+
+  const navigate = useNavigate();
 
   function newTransaction(event) {
     event.preventDefault();
@@ -19,8 +21,8 @@ export default function TransactionsPage() {
     };
     const data = { value: parseFloat(value), description: description };
     const req = axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${type}`, data, authentication);
-    req.then(alert("Transaction created!"));
-    req.catch(res => alert(`Failed to create transaction! ${res.response.data.message}`));
+    req.then(navigate('/home'));
+    req.catch(res => alert(`Falha ao criar transação! ${res.response.data.message}`));
   }
 
   return (
@@ -29,17 +31,19 @@ export default function TransactionsPage() {
       <form onSubmit={newTransaction}>
         <input
           placeholder="Valor"
-          type="text"
+          type="number"
           value={value}
           onChange={e => setValue(e.target.value)}
+          data-test="registry-amount-input"
         />
         <input
           placeholder="Descrição"
           type="text"
           value={description}
           onChange={e => setDescription(e.target.value)}
+          data-test="registry-name-input"
         />
-        <button type="submit">Salvar TRANSAÇÃO</button>
+        <button type="submit" data-test="registry-save">Salvar TRANSAÇÃO</button>
       </form>
     </TransactionsContainer>
   )
