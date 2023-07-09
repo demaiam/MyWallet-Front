@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
-const Context = createContext();
+export const Context = createContext();
 
-export function ContextProvider({ children }) {
+export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState('');
   const [name, setName] = useState('');
 
@@ -12,5 +12,3 @@ export function ContextProvider({ children }) {
     </Context.Provider>
   )
 }
-
-export default Context;

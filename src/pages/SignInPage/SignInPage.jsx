@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import MyWalletLogo from "../../components/MyWalletLogo";
 import axios from 'axios';
 import { SignInContainer } from "./styled";
-import Context from "../../context/Context";
+import { Context } from "../../context/Context";
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');

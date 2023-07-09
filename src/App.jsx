@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Context from './context/Context'; 
+import { ContextProvider } from './context/Context';
 import styled from "styled-components";
 import HomePage from "./pages/HomePage/HomePage";
 import SignInPage from "./pages/SignInPage/SignInPage";
@@ -8,7 +8,7 @@ import TransactionsPage from "./pages/TransactionPage/TransactionPage";
 
 export default function App() {
   return (
-    <Context>
+    <ContextProvider>
       <PagesContainer>
         <BrowserRouter>
           <Routes>
@@ -19,7 +19,7 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </PagesContainer>
-    </Context>
+    </ContextProvider>
   )
 }
 

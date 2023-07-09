@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { TransactionsContainer } from "./styled";
 import { useNavigate, useParams } from "react-router-dom";
-import Context from "../../context/Context";
+import { Context } from "../../context/Context";
 
 export default function TransactionsPage() {
   const [value, setValue] = useState(0);
