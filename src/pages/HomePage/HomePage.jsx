@@ -1,7 +1,7 @@
 import { BiExit } from "react-icons/bi";
 import { Context } from "../../context/Context";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { HomeContainer, Header, TransactionsContainer, ButtonsContainer, Value, ListItemContainer } from './styled';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
