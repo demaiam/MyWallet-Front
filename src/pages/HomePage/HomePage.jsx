@@ -25,9 +25,7 @@ export default function HomePage() {
       setTransactions(res.data);
       calculateBalance();
     });
-    req.catch(err =>
-      console.log(err.response.data)
-    );
+    req.catch(err => alert(`Erro ao carregar as transações! ${err.response.data}`));
   }, []);
   
   function calculateBalance() {

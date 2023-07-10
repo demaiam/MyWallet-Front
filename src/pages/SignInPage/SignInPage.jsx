@@ -19,7 +19,7 @@ export default function SignInPage() {
     req.then(res => {
       setToken(res.data.token);
       setName(res.data.name);
-      navigate('/');
+      navigate('/home');
     });
     req.catch(res => 
       alert(`Falha ao fazer Login! ${res.response.data.message}`)
