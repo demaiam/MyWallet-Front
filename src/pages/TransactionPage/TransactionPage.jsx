@@ -7,11 +7,16 @@ import axios from "axios";
 export default function TransactionsPage() {
   const [value, setValue] = useState(0);
   const [description, setDescription] = useState('');
+  const [formattedType, setFormattedType] = useState('');
 
   const { type } = useParams();
+
   const { token } = useContext(Context);
 
   const navigate = useNavigate();
+
+  if (type == 'saida') setFormattedType('saída');
+  else setFormattedType('entrada');
 
   function newTransaction(event) {
     event.preventDefault();
@@ -28,7 +33,7 @@ export default function TransactionsPage() {
 
   return (
     <TransactionsContainer>
-      <h1>Nova TRANSAÇÃO</h1>
+      <h1>Nova {formattedType}</h1>
       <form onSubmit={newTransaction}>
         <input
           placeholder="Valor"
@@ -44,7 +49,7 @@ export default function TransactionsPage() {
           onChange={e => setDescription(e.target.value)}
           data-test="registry-name-input"
         />
-        <button type="submit" data-test="registry-save">Salvar TRANSAÇÃO</button>
+        <button type="submit" data-test="registry-save">Salvar {formattedType}</button>
       </form>
     </TransactionsContainer>
   )

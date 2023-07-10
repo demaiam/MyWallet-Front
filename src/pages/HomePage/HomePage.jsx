@@ -9,6 +9,7 @@ import axios from "axios";
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ export default function HomePage() {
       else sum += transactions[i].value;
     }
     setBalance(sum);
+    setLoading(false);
   }
 
   return (
@@ -44,7 +46,7 @@ export default function HomePage() {
         <BiExit data-test="logout"/>
       </Header>
 
-      {transactions.length == 0
+      {loading
         ?
         <TransactionsContainer>
           Não há registros de entrada ou saída
@@ -58,14 +60,14 @@ export default function HomePage() {
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
-                <Value color={transaction.type} data-test="registy-amount">{transaction.value}</Value>
+                <Value color={type} data-test="registy-amount">{transaction.value}</Value>
               </ListItemContainer>
             ))}
           </ul>
 
-          <article data-test="total-amount">
+          <article>
             <strong>Saldo</strong>
-            <Value color={() => balance >= 0 ? 'entrada' : 'saida'}>{balance.toFixed(2)}</Value>
+            <Value color={() => balance >= 0 ? 'entrada' : 'saida'} data-test="total-amount">{balance.toFixed(2)}</Value>
           </article>
         </TransactionsContainer>
       }
