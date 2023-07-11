@@ -7,7 +7,7 @@ import axios from "axios";
 export default function TransactionsPage() {
   const [value, setValue] = useState(0);
   const [description, setDescription] = useState('');
-  const [formattedType, setFormattedType] = useState('');
+  const [formattedType, setFormattedType] = useState('entrada');
 
   const { type } = useParams();
 
@@ -16,16 +16,17 @@ export default function TransactionsPage() {
   const navigate = useNavigate();
 
   if (type == 'saida') setFormattedType('saída');
-  else setFormattedType('entrada');
 
   function newTransaction(event) {
     event.preventDefault();
+
     const authentication = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
     const data = { value: parseFloat(value), description: description };
+
     const req = axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${type}`, data, authentication);
     req.then(navigate('/home'));
     req.catch(res => alert(`Falha ao criar transação! ${res.response.data.message}`));

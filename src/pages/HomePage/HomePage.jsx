@@ -9,7 +9,6 @@ import axios from "axios";
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
-  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -32,11 +31,12 @@ export default function HomePage() {
   function calculateBalance() {
     let sum = 0;
     for (let i = 0; i < transactions.length; i++) {
-      if (transactions[i].type == 'saida') sum -= transactions[i].value;
-      else sum += transactions[i].value;
+      if (transactions[i].type == 'saida')
+        sum -= transactions[i].value;
+      else
+        sum += transactions[i].value;
     }
     setBalance(sum);
-    setLoading(false);
   }
 
   return (
@@ -46,7 +46,7 @@ export default function HomePage() {
         <BiExit data-test="logout"/>
       </Header>
 
-      {loading
+      {transactions.length == 0
         ?
         <TransactionsContainer>
           Não há registros de entrada ou saída
