@@ -9,7 +9,6 @@ import axios from "axios";
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [balance, setBalance] = useState(0);
-  const [empty, setEmpty] = useState(true);
 
   const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ export default function HomePage() {
     const req = axios.get(`${import.meta.env.VITE_API_URL}/home`, authentication);
     req.then(res => {
       setTransactions(res.data);
-      setEmpty(false);
       calculateBalance();
     });
     req.catch(err => alert(`Erro ao carregar as transações! ${err.response.data}`));
@@ -54,7 +52,7 @@ export default function HomePage() {
         <BiExit onClick={logout} data-test="logout"/>
       </Header>
 
-      {empty
+      {transactions.length == 0
         ?
         <TransactionsContainer>
           Não há registros de entrada ou saída
