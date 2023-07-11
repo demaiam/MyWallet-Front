@@ -8,14 +8,14 @@ import axios from "axios";
 
 export default function HomePage() {
   const [transactions, setTransactions] = useState([]);
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(10);
 
   const navigate = useNavigate();
 
   const { name, token, setToken } = useContext(Context);
 
   useEffect(() => {
-    console.log(token);
+    if (token == '') navigate('/');
     const authentication = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,6 +37,7 @@ export default function HomePage() {
       else
         sum += transactions[i].value;
     }
+    sum = sum.toFixed(2);
     setBalance(sum);
   }
 
@@ -66,14 +67,18 @@ export default function HomePage() {
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
-                <Value color={type} data-test="registy-amount">{transaction.value}</Value>
+                <Value color={type}>
+                  <a data-test="registy-amount">{transaction.value}</a>
+                </Value>
               </ListItemContainer>
             ))}
           </ul>
 
           <article>
             <strong>Saldo</strong>
-            <Value color={() => balance >= 0 ? 'entrada' : 'saida'} data-test="total-amount">{balance.toFixed(2)}</Value>
+            <Value color={() => balance >= 0 ? 'entrada' : 'saida'}>
+              <a data-test="total-amount">{balance}</a>
+            </Value>
           </article>
         </TransactionsContainer>
       }
