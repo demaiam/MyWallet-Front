@@ -12,9 +12,10 @@ export default function HomePage() {
 
   const navigate = useNavigate();
 
-  const { name, token } = useContext(Context);
+  const { name, token, setToken } = useContext(Context);
 
   useEffect(() => {
+    console.log(token);
     const authentication = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,11 +40,16 @@ export default function HomePage() {
     setBalance(sum);
   }
 
+  function logout() {
+    setToken('');
+    navigate('/');
+  }
+
   return (
     <HomeContainer>
       <Header>
         <h1 data-test="user-name">Olá, {name}</h1>
-        <BiExit data-test="logout"/>
+        <BiExit onClick={logout} data-test="logout"/>
       </Header>
 
       {transactions.length == 0

@@ -22,7 +22,7 @@ export default function SignInPage() {
       navigate('/home');
     });
     req.catch(res => 
-      alert(`Falha ao fazer Login! ${res.response.data.message}`)
+      alert(`Falha ao fazer Login! ${res.response.data}`)
     );
   }
 
