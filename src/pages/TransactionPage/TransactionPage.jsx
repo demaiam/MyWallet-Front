@@ -9,7 +9,7 @@ export default function TransactionsPage() {
   const [description, setDescription] = useState('');
   const [formattedType, setFormattedType] = useState('entrada');
 
-  const { type } = useParams();
+  const params = useParams();
 
   const { token } = useContext(Context);
 
@@ -27,7 +27,7 @@ export default function TransactionsPage() {
     };
     const data = { value: parseFloat(value), description: description };
 
-    const req = axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${type}`, data, authentication);
+    const req = axios.post(`${import.meta.env.VITE_API_URL}/nova-transacao/${params.tipo}`, data, authentication);
     req.then(navigate('/home'));
     req.catch(res => alert(`Falha ao criar transação! ${res.response.data.message}`));
   }

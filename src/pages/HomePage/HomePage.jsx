@@ -37,7 +37,6 @@ export default function HomePage() {
       else
         sum += transactions[i].value;
     }
-    sum = sum.toFixed(2);
     setBalance(sum);
   }
 
@@ -62,13 +61,13 @@ export default function HomePage() {
         <TransactionsContainer>
           <ul>
             {transactions.map((transaction, index) => (
-              <ListItemContainer>
+              <ListItemContainer key={index}>
                 <div>
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
                 <Value color={type}>
-                  <a data-test="registy-amount">{transaction.value}</a>
+                  <a data-test="registy-amount">{transaction.value.toFixed(2).toString().replace('.', ',')}</a>
                 </Value>
               </ListItemContainer>
             ))}
@@ -77,7 +76,7 @@ export default function HomePage() {
           <article>
             <strong>Saldo</strong>
             <Value color={() => balance >= 0 ? 'entrada' : 'saida'}>
-              <a data-test="total-amount">{balance}</a>
+              <a data-test="total-amount">{balance.toFixed(2).toString().replace('.', ',')}</a>
             </Value>
           </article>
         </TransactionsContainer>
