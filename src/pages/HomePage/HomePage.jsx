@@ -66,8 +66,8 @@ export default function HomePage() {
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
-                <Value color={transaction.type}>
-                  <a data-test="registy-amount">{transaction.value.toFixed(2).toString().replace('.', ',')}</a>
+                <Value color={transaction.type} data-test="registy-amount">
+                  {transaction.value.toFixed(2)}
                 </Value>
               </ListItemContainer>
             ))}
@@ -75,8 +75,8 @@ export default function HomePage() {
 
           <article>
             <strong>Saldo</strong>
-            <Value color={() => balance >= 0 ? 'entrada' : 'saida'}>
-              <a data-test="total-amount">{balance.toFixed(2).toString().replace('.', ',')}</a>
+            <Value color={balance >= 0 ? 'entrada' : 'saida'} data-test="total-amount">
+              {balance.toFixed(2)}
             </Value>
           </article>
         </TransactionsContainer>
