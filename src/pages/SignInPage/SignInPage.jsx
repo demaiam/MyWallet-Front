@@ -27,7 +27,7 @@ export default function SignInPage() {
     req.then(res => {
       setToken(res.data.token);
       setName(res.data.name);
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', res.data.token);
       navigate('/home');
     });
     req.catch(res => 
