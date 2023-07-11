@@ -66,7 +66,7 @@ export default function HomePage() {
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
-                <Value color={type}>
+                <Value color={transaction.type}>
                   <a data-test="registy-amount">{transaction.value.toFixed(2).toString().replace('.', ',')}</a>
                 </Value>
               </ListItemContainer>
