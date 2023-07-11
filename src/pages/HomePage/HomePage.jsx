@@ -24,24 +24,25 @@ export default function HomePage() {
     const req = axios.get(`${import.meta.env.VITE_API_URL}/home`, authentication);
     req.then(res => {
       setTransactions(res.data);
-      calculateBalance();
+      calculateBalance(res.data);
     });
     req.catch(err => alert(`Erro ao carregar as transações! ${err.response.data}`));
   }, []);
   
-  function calculateBalance() {
+  function calculateBalance(data) {
     let sum = 0;
-    for (let i = 0; i < transactions.length; i++) {
-      if (transactions[i].type == 'saida')
-        sum -= transactions[i].value;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].type == 'saida')
+        sum -= data[i].value;
       else
-        sum += transactions[i].value;
+        sum += data[i].value;
     }
     setBalance(sum);
   }
 
   function logout() {
     setToken('');
+    localStorage.removeItem('token');
     navigate('/');
   }
 
@@ -60,13 +61,13 @@ export default function HomePage() {
         :
         <TransactionsContainer>
           <ul>
-            {transactions.map((transaction, index) => (
+            {transactions.toReversed().map((transaction, index) => (
               <ListItemContainer key={index}>
                 <div>
                   <span>{transaction.time}</span>
                   <strong data-test="registry-name">{transaction.description}</strong>
                 </div>
-                <Value color={transaction.type} data-test="registy-amount">
+                <Value color={transaction.type} data-test="registry-amount">
                   {transaction.value.toFixed(2)}
                 </Value>
               </ListItemContainer>
