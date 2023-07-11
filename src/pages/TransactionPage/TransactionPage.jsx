@@ -15,7 +15,7 @@ export default function TransactionsPage() {
 
   const navigate = useNavigate();
 
-  if (type == 'saida') setFormattedType('saída');
+  if (params.tipo == 'saida') setFormattedType('saída');
 
   function newTransaction(event) {
     event.preventDefault();
