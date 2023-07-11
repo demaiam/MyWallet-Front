@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyWalletLogo from "../../components/MyWalletLogo";
 import axios from 'axios';
@@ -12,6 +12,14 @@ export default function SignInPage() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const sessionToken = localStorage.getItem('token');
+    if (sessionToken) {
+      setToken(sessionToken);
+      navigate('/home');
+    }
+  }, []);
+
   function login(event) {
     event.preventDefault();
     const data = { email: email, password: password };
@@ -19,6 +27,7 @@ export default function SignInPage() {
     req.then(res => {
       setToken(res.data.token);
       setName(res.data.name);
+      localStorage.setItem('token', response.data.token);
       navigate('/home');
     });
     req.catch(res => 
